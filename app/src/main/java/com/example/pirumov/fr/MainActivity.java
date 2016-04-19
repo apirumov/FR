@@ -17,6 +17,9 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Fragment1.OnSelectedButtonListener {
 
+    private FragmentManager fragmentManager;
+    private Fragment2 fragment2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        fragmentManager = getSupportFragmentManager();
+        fragment2 = (Fragment2) fragmentManager.findFragmentById(R.id.fragment2);
     }
 
     @Override
@@ -83,12 +89,13 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            fragment2.setMenu("Import");
         } else if (id == R.id.nav_gallery) {
-
+            fragment2.setMenu("Gallery");
         } else if (id == R.id.nav_slideshow) {
-
+            fragment2.setMenu("Slideshow");
         } else if (id == R.id.nav_manage) {
-
+            fragment2.setMenu("Tools");
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -102,8 +109,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onButtonSelected(int buttonIndex) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment2 fragment2 = (Fragment2) fragmentManager.findFragmentById(R.id.fragment2);
 
         if (fragment2 != null)
             fragment2.setDescription(buttonIndex);
